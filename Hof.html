@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Content</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="JudasCaps Wd.ttf" rel="stylesheet">
+    <link href="werebeast.ttf" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            position: relative;
+            height: 100vh;
+        }
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .centered-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 1s ease, visibility 1s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+        .centered-text {
+            color: #fff;
+            font-size: 24px;
+            font-family: 'JudasCaps Wd', sans-serif;
+            text-shadow: 0 0 10px #fff;
+            cursor: pointer;
+            z-index: 11;
+            transition: color 0.3s ease;
+        }
+        .centered-text:hover {
+            color: #6a00ff;
+        }
+        .content {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 1000px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            text-align: left;
+            color: #fff;
+            font-family: 'werebeast', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+            z-index: 5;
+            position: relative;
+            min-height: 600px; /* Increased height of the content box */
+        }
+        .profile-pic {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        .large-text {
+            font-size: 24px;
+            font-family: 'JudasCaps Wd', sans-serif;
+            margin-top: 10px;
+        }
+        .small-text {
+            font-size: 14px;
+            font-family: 'werebeast', sans-serif;
+            margin-top: 5px;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #000;
+            border: 2px solid #5d00ff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-family: 'werebeast', sans-serif;
+            transition: all 0.3s;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .back-button:hover {
+            border-color: #6a00ff;
+            outline: 1px solid #6a00ff;
+            transform: scale(1.05);
+        }
+        .snowflake {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: snowflake-fall 10s linear infinite;
+        }
+        @keyframes snowflake-fall {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(100vh); }
+        }
+        .title {
+            text-align: center;
+            width: 100%;
+            font-size: 36px;
+            font-family: 'JudasCaps Wd', sans-serif;
+            color: #fff;
+            margin-bottom: 20px;
+            animation: rainbow 10s linear infinite;
+        }
+        @keyframes rainbow {
+            0% { color: red; }
+            15% { color: orange; }
+            30% { color: yellow; }
+            45% { color: green; }
+            60% { color: lightblue; }
+            75% { color: blue; }
+            90% { color: purple; }
+            100% { color: pink; }
+        }
+    </style>
+</head>
+<body>
+    <video class="background-video" autoplay muted loop>
+        <source src="stuff/bg2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="centered-overlay" id="overlay">
+        <div class="centered-text" onclick="showContent()">Click to Enter</div>
+    </div>
+
+    <div class="content" id="content">
+        <div class="title">HALL OF SKIDS</div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="stuff/skid1.png" alt="Profile Picture" class="profile-pic">
+            <div>
+                <div class="large-text">glockratio</div>
+                <div class="small-text">skids tried to raid my server, failed, got called out, then got raied... yikes</div>
+            </div>
+        </div>
+        <a href="index.html" class="back-button">Back to Main Page</a>
+    </div>
+
+    <audio id="audio" src="stuff/audio2.mp3"></audio>
+
+    <script>
+        function showContent() {
+            document.getElementById('overlay').style.opacity = '0';
+            document.getElementById('overlay').style.visibility = 'hidden';
+            document.getElementById('content').style.display = 'flex';
+            document.getElementById('audio').play();
+        }
+
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(snowflake);
+            setTimeout(() => {
+                document.body.removeChild(snowflake);
+            }, 5000);
+        }
+        setInterval(createSnowflake, 100);
+
+        const titles = [
+            'L',
+            'skids',
+            'cr4shed.lol better',
+            'skill issue',
+            'bozo'
+        ];
+
+        let titleIndex = 0;
+        const titleChangeInterval = 500; 
+
+        function changeTitle() {
+            document.title = titles[titleIndex];
+            titleIndex = (titleIndex + 1) % titles.length;
+        }
+
+        changeTitle();
+
+        setInterval(changeTitle, titleChangeInterval);
+    </script>
+</body>
+</html>
